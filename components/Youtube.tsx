@@ -44,7 +44,7 @@ function formatNumber(n?: string) {
 function Skeleton({ className }: { className?: string }) {
   // Skeleton mirrors the final card layout so dimensions don't shift when content loads.
   return (
-    <div className={`backdrop-blur-md px-5 rounded-2xl border-2 border-border w-126 h-80 ${className || ''}`}>
+    <div className={`backdrop-blur-md drop-shadow-2xl drop-shadow-red-900 bg-black/30 px-5 rounded-2xl w-126 h-80 ${className || ''}`}>
       {/* Header skeleton: avatar + title */}
       <div className="flex items-center gap-3 mt-2">
         {/* Avatar matches final: 72x72 */}
@@ -140,7 +140,7 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
   const description = channel.snippet?.description || ''
 
   return (
-    <div className={`backdrop-blur-md px-5 rounded-2xl border-2 border-border w-126 h-80 ${className || ''}`}>
+    <div className={`backdrop-blur-md drop-shadow-2xl drop-shadow-red-900 bg-black/30 px-5 rounded-2xl w-126 h-80 ${className || ''}`}>
       {/* Priority header: avatar + name */}
       <div className="flex items-center gap-3 mt-2">
         <img
