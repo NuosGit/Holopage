@@ -5,8 +5,8 @@ export type Channel = {
 
 export const channels: Channel[] = [
   { username: "sakuramiko", displayName: "Sakura Miko" },
+  { username: "inugamikorone", displayName: "Inugami Korone" },
+  { username: "oozorasubaru", displayName: "Oozora Subaru" },
   { username: "usadapekora", displayName: "Usada Pekora" },
-  { username: "minatoaqua", displayName: "Minato Aqua" },
-  { username: "murasakishionch", displayName: "Murasaki Shion" },
-  { username: "yuzukichoco", displayName: "Yuzuki Choco" },
+  { username: "hoshimachisuisei", displayName: "Hoshimachi Suisei" },
 ]

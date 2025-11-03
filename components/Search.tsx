@@ -18,7 +18,7 @@ export default function Search() {
   return (
     <div className="w-7/10 flex flex-row gap-5 backdrop-blur-md px-5 rounded-2xl border-2 border-border">
       <FontAwesomeIcon widthAuto icon={faMagnifyingGlass} className="w-15 h-15 my-auto" />
-      <form onSubmit={handleSubmit} className="flex-grow">
+      <form onSubmit={handleSubmit} className="grow">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}

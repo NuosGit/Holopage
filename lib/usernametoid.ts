@@ -1,10 +1,10 @@
 export function usernametoid(username: string): string {
   const mapping: Record<string, string> = {
     sakuramiko: "UC-hM6YJuNYVAmUWxeIr9FeA",
+    inugamikorone: "UChAnqc_AY5_I3Px5dig3X1Q",
+    oozorasubaru: "UCvzGlP9oQwU--Y0r9id_jnA",
     usadapekora: "UC1DCedRgGHBdm81E1llLhOQ",
-    minatoaqua: "UC1opHUrw8rvnsadT-iGp7Cg",
-    murasakishionch: "UCDqI2jOz0weumE8s7paEk6g",
-    yuzukichoco: "UC1suqwovbL1kzsoaZgFZLKg",
+    hoshimachisuisei: "UC5CwaMl1eIgY8h02uZw7u8A",
   }
 
   return mapping[username] || ""
