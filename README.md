@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## YouTube API route
+
+This project includes a small server API route to fetch a channel's upcoming livestreams or latest uploads using the YouTube Data API v3.
+
+1. Add your API key to `.env` (see `.env.example`):
+
+```text
+YOUTUBE_API_KEY=your_youtube_data_api_key_here
+```
+
+2. Endpoints (GET)
+
+- `/api/youtube?channelId=<CHANNEL_ID>&mode=upcoming` — upcoming scheduled livestreams (default mode)
+- `/api/youtube?channelId=<CHANNEL_ID>&mode=live` — currently live streams
+- `/api/youtube?channelId=<CHANNEL_ID>&mode=uploads` — recent uploaded videos
+- You can use `forUsername=<USERNAME>` instead of `channelId` to look up a channel by legacy username.
+- Optional `maxResults` query parameter (default 5, max 50).
+
+Example:
+
+```
+GET /api/youtube?channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&mode=upcoming&maxResults=3
+```
+
+The route returns JSON with enriched video details (snippet, liveStreamingDetails, statistics).
+
