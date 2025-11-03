@@ -44,9 +44,9 @@ function formatNumber(n?: string) {
 function Skeleton({ className }: { className?: string }) {
   // Skeleton mirrors the final card layout so dimensions don't shift when content loads.
   return (
-    <div className={`rounded-lg p-3 border border-gray-200 w-126 h-80 ${className || ''}`}>
+    <div className={`backdrop-blur-md px-5 rounded-2xl border-2 border-border w-126 h-80 ${className || ''}`}>
       {/* Header skeleton: avatar + title */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mt-2">
         {/* Avatar matches final: 72x72 */}
         <div className="w-[72px] h-[72px] rounded-full bg-gray-200" />
         <div className="flex-1">
@@ -131,8 +131,8 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
   }
 
   if (loading) return <Skeleton className={className} />
-  if (error) return <div className={className}>Error: {error}</div>
-  if (!channel) return <div className={className}>No channel data found.</div>
+  if (error) return <Skeleton className={className} />
+  if (!channel) return <Skeleton className={className} />
 
   const title = channel.snippet?.title || 'Unknown channel'
   const thumb = channel.snippet?.thumbnails?.medium?.url || channel.snippet?.thumbnails?.default?.url || ''
@@ -140,9 +140,9 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
   const description = channel.snippet?.description || ''
 
   return (
-    <div className={`rounded-lg p-3 border border-gray-200 w-126 h-80 ${className || ''}`}>
+    <div className={`backdrop-blur-md px-5 rounded-2xl border-2 border-border w-126 h-80 ${className || ''}`}>
       {/* Priority header: avatar + name */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mt-2">
         <img
           src={thumb}
           alt={`${title} avatar`}

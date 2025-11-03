@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 source .env.local
 
-curl -i "https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=@MrBeast&key=${YOUTUBE_API_KEY}"
+curl -i "https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=@SakuraMikochi&key=${YOUTUBE_API_KEY}"

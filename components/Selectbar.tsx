@@ -32,13 +32,13 @@ export default function Selectbar() {
     }, [])
 
     return (
-        <div className="rounded-lg p-3 border border-gray-200 w-126 h-80">
+        <div className="backdrop-blur-md px-5 rounded-2xl border-2 border-border w-126 h-80">
             <div className="w-full h-7/10 flex justify-center items-center">
                 <img src="/Hologo.svg" alt="Hologo" className="max-w-full max-h-full" />
             </div>
 
             <div className="mt-3">
-                <label htmlFor="hololive-select" className="block text-sm font-medium text-white">Select Hololive channel</label>
+                <label htmlFor="hololive-select" className="block text-sm font-bold text-white">Select Holomem</label>
                 {loading ? (
                     <div className="mt-2 text-sm text-white">Loading channels…</div>
                 ) : error ? (
