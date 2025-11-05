@@ -135,7 +135,10 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
   if (!channel) return <Skeleton className={className} />
 
   const title = channel.snippet?.title || 'Unknown channel'
-  const thumb = channel.snippet?.thumbnails?.medium?.url || channel.snippet?.thumbnails?.default?.url || ''
+const thumb = channel.snippet?.thumbnails?.high?.url 
+           || channel.snippet?.thumbnails?.medium?.url 
+           || channel.snippet?.thumbnails?.default?.url 
+           || '';
   const subs = formatNumber(channel.statistics?.subscriberCount)
   const description = channel.snippet?.description || ''
 
@@ -144,6 +147,7 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
       {/* Priority header: avatar + name */}
       <div className="flex items-center gap-3 mt-2">
         <img
+          key={thumb}
           src={thumb}
           alt={`${title} avatar`}
           className="w-[72px] h-[72px] rounded-full object-cover"
