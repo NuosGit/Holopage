@@ -6,10 +6,11 @@ import Selectbar from "@/components/Selectbar";
 
 export default function SearchWithYT() {
   const [channelId, setChannelId] = useState("UC-hM6YJuNYVAmUWxeIr9FeA");
+  const [selectedUser] = useState("sakuramiko")
 
   return (
     <>
-        <Selectbar onChannelChange={setChannelId} />
+        <Selectbar value={selectedUser} onChannelChange={setChannelId} />
         <Youtube key={channelId} channelId={channelId} />
     </>
   );

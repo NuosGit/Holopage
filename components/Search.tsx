@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState,FormEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,8 +23,9 @@ export default function Search() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="py-4 w-full text-xl focus:outline-none"
-          placeholder="Just Search Like A Good Boy :)"
+          placeholder="Search Like A Good Boy :)"
           aria-label="Search"
+          autoFocus
         />
       </form>
     </div>

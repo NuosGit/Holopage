@@ -6,7 +6,7 @@ import { usernametoid } from "@/lib/usernametoid"
 
 type Channel = { id: string; name: string; photo?: string | null }
 
-export default function Selectbar({ onChannelChange }: { onChannelChange: (channelId: string) => void }) {
+export default function Selectbar({ value, onChannelChange }: { value: string; onChannelChange: (channelId: string) => void }) {
     const [selectedUser, setSelectedUser] = useState("sakuramiko")
     const [channelId, setChannelId] = useState(usernametoid("sakuramiko"))
 
