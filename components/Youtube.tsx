@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import CompletedSrc from '../public/completed.svg'
 
 type Channel = {
   id: string
@@ -15,6 +14,11 @@ type Channel = {
 
 type ChannelResponse = {
   channel: Channel | null
+}
+
+type LiveStatus = {
+  isLive: boolean
+  isUpcoming: boolean
 }
 
 type Video = {
@@ -76,6 +80,7 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
   const [latest, setLatest] = useState<Video | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [status, setStatus] = useState<LiveStatus | null>(null)
 
   useEffect(() => {
     let mounted = true
@@ -110,6 +115,19 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
         } else {
           setLatest(null)
         }
+
+        const fetchStatus = async () => {
+          try {
+            const res = await fetch(`/api/youtube?mode=live&channelId=${channelId}`)
+            const data = await res.json()
+            if (mounted) setStatus(data)
+          } catch (error) {
+            console.error("Error fetching YouTube status:", error)
+          }
+        }
+
+        await fetchStatus()
+      
       } catch (err: any) {
         if (!mounted) return
         setError(err?.message || 'Failed to load')
@@ -164,21 +182,25 @@ const thumb = channel.snippet?.thumbnails?.high?.url
           <div className="mb-2.5 text-white max-h-[72px] overflow-y-auto text-sm">{description}</div>
         ) : null}
         <div className="font-semibold mb-2 text-center">
-          {
-            (() => {
-              const _c: any = CompletedSrc
-              const completedUrl = (_c && (typeof _c === 'string' ? _c : _c.src)) || ''
-              return <img src={completedUrl} alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
-            })()
-          }
-          Recently
-          {
-            (() => {
-              const _c: any = CompletedSrc
-              const completedUrl = (_c && (typeof _c === 'string' ? _c : _c.src)) || ''
-              return <img src={completedUrl} alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
-            })()
-          }
+          {status?.isLive ? (
+            <>
+              <img src="/living.svg" alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
+              Live Streaming
+              <img src="/living.svg" alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
+            </>
+          ) : status?.isUpcoming ? (
+            <>
+              <img src="/star.svg" alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
+              Upcoming Live
+              <img src="/star.svg" alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
+            </>
+          ) : (
+            <>
+              <img src="/completed.svg" alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
+              Recently
+              <img src="/completed.svg" alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
+            </>
+          )}
         </div>
         {latest ? (
           <a
