@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   const forUsername = searchParams.get('forUsername')
   const maxResults = searchParams.get('maxResults') || '5'
 
+
   try {
     if (!YOUTUBE_API_KEY) {
       return NextResponse.json({ error: 'Missing YouTube API key' }, { status: 500 })
@@ -97,6 +98,47 @@ export async function GET(request: Request) {
       })) || []
 
       return NextResponse.json({ results })
+    }
+
+    // ---------- LIVE STATUS ----------
+
+    if (mode === "live") {
+      let id = channelId
+
+      if (!id && forUsername) {
+        const findRes = await fetch(
+          `https://www.googleapis.com/youtube/v3/channels?part=id&forUsername=${forUsername}&key=${YOUTUBE_API_KEY}`
+        )
+        const findJson = await findRes.json()
+        id = findJson.items?.[0]?.id
+      }
+
+      if (!id) {
+        return NextResponse.json({ error: "Missing channelId or forUsername" }, { status: 400 })
+      }
+
+      // First check for currently live broadcasts using eventType=live
+      const liveSearchRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${id}&type=video&eventType=live&maxResults=1&key=${YOUTUBE_API_KEY}`
+      )
+      const liveSearchJson = await liveSearchRes.json()
+
+      if (liveSearchJson.items && liveSearchJson.items.length > 0) {
+        return NextResponse.json({ isLive: true, isUpcoming: false })
+      }
+
+      // If none live, check for upcoming scheduled streams
+      const upcomingSearchRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${id}&type=video&eventType=upcoming&maxResults=1&key=${YOUTUBE_API_KEY}`
+      )
+      const upcomingSearchJson = await upcomingSearchRes.json()
+
+      if (upcomingSearchJson.items && upcomingSearchJson.items.length > 0) {
+        return NextResponse.json({ isLive: false, isUpcoming: true })
+      }
+
+      // Nothing live or upcoming
+      return NextResponse.json({ isLive: false, isUpcoming: false })
     }
 
     // Invalid mode

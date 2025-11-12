@@ -118,7 +118,9 @@ export default function Youtube({ channelId, forUsername, className }: Props) {
 
         const fetchStatus = async () => {
           try {
-            const res = await fetch(`/api/youtube?mode=live&channelId=${channelId}`)
+            // reuse the same query params (channelId or forUsername) so the API can resolve either
+            const statusUrl = `/api/youtube?${q.toString()}&mode=live`
+            const res = await fetch(statusUrl)
             const data = await res.json()
             if (mounted) setStatus(data)
           } catch (error) {
@@ -184,9 +186,9 @@ const thumb = channel.snippet?.thumbnails?.high?.url
         <div className="font-semibold mb-2 text-center">
           {status?.isLive ? (
             <>
-              <img src="/living.svg" alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
+              <img src="/live.svg" alt="completed" className="inline-block w-5 h-5 mr-2 mb-1 align-middle" />
               Live Streaming
-              <img src="/living.svg" alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
+              <img src="/live.svg" alt="completed" className="inline-block w-5 h-5 ml-2 mb-1 align-middle" />
             </>
           ) : status?.isUpcoming ? (
             <>
